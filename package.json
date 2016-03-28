@@ -1,0 +1,40 @@
+{
+  "name": "mozaik-ext-jsonfeed",
+  "version": "0.0.1",
+  "description": "Mozaïk json feed reader extension",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keseruk/mozaik-ext-jsonfeed.git"
+  },
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "convict": "^1.0.1",
+    "superagent-bluebird-promise": "^2.1.0"
+  },
+  "main": "./src/components/index.js",
+  "devDependencies": {
+    "mozaik": "0.0.9-beta",
+    "react": "^0.12.2",
+    "react-tools": "^0.12.2",
+    "reflux": "^0.2.5"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "readme": "# Mozaïk mozaik-ext-jsonfeed extension",
+  "readmeFilename": "README.md",
+  "gitHead": "",
+  "bugs": {
+    "url": "https://github.com/keseruk/mozaik-ext-jsonfeed/issues"
+  },
+  "homepage": "https://github.com/keseruk/mozaik-ext-jsonfeed",
+  "_id": "mozaik-ext-jsonfeed@0.0.1",
+  "scripts": {},
+  "_shasum": "",
+  "_from": "mozaik-ext-jsonfeed@^0.0.1"
+}

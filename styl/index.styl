@@ -1,16 +1,30 @@
 .jsonwidget {
+
   &__value {
-    align-self: flex-end;
-    align-items: flex-end;
-    flex: 1;
     text-align center;
-    justify-content: center;
-    flex-direction column;
     margin-top 15px;
     font-size 30px;
     line-height 30px;
-    display block;
     width 100%;
     margin-bottom 9px;
+  }
+
+  &__values, &__values--error {
+    position: absolute;
+    top: 6vmin;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-radius: 0 0 2px 2px;
+    box-shadow: none;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &__values--error {
+    background-color: red;
   }
 }

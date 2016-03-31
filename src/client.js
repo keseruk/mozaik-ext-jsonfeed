@@ -7,25 +7,24 @@ import chalk   from 'chalk';
  */
 const client = function (mozaik) {
 
-    mozaik.loadApiConfig(config);
+    function buildApiRequest(params) {
+        const { jsonUrl, jsonHeaders } = params;
+        let req = request.get(jsonUrl);
 
-    function buildApiRequest() {
-        let url     = config.get('jsonfeed.url');
-        let headers = config.get('jsonfeed.headers');
-        let req     = request.get(url);
-
-        headers.forEach(function(header){
-            req.set(header.name, header.value);
-        });
-        mozaik.logger.info(chalk.yellow(`[jsonfeed] calling ${ url }`));
+        if (jsonHeaders != undefined) {
+          jsonHeaders.forEach(function(header){
+              req.set(header.name, header.value);
+          });
+        }
+        mozaik.logger.info(chalk.yellow(`[jsonfeed] calling ${ jsonUrl }`));
 
         return req.promise();
     }
 
     const apiCalls = {
         data(params) {
-            return buildApiRequest()
-                .then(res => JSON.parse(res.text))
+            return buildApiRequest(params)
+                .then(res => JSON.parse(res.text), error => mozaik.logger.error(error))
             ;
         }
     };

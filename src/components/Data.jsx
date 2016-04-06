@@ -15,6 +15,7 @@ export default React.createClass({
         return {
             title: null,
             values: null,
+            error: false,
             jsonUrl: null,
             jsonHeaders : null
         };
@@ -40,7 +41,6 @@ export default React.createClass({
     if (typeof defval === 'undefined') defval = null;
       for (var i = 0; i < props.length; i++) {
         var prop = props[i];
-        console.log("prop: " + prop);
         if (typeof prop !== 'undefined' && prop && prop.match(/\$\{.*\}/)) {
             // ${key.prop.value} -> key.prop.value
             prop = prop.split('${')[1].split('}')[0]
@@ -55,7 +55,6 @@ export default React.createClass({
                 value = value[prop[j]];
             }
             values[i] = value;
-            console.log("values from json: " + value);
           }
         }
         return values;
@@ -65,12 +64,13 @@ export default React.createClass({
         this.setState({
             title: this.props.title,
             values: this.findProps(data, this.props.values),
+			error: !!data.e
         });
     },
 
     render() {
         var title = "unknown", value = "unknown";
-        var valuesClass = "jsonwidget__values";
+        var valuesClass = this.state.error ? "jsonwidget__values--error" : "jsonwidget__values";
 
         if (this.state.title){
             title = this.state.title;
@@ -84,8 +84,6 @@ export default React.createClass({
                 </span>
               </div>);
           }
-        } else if (this.state.values == null || this.state.values.length == 0) {
-          valuesClass = "jsonwidget__values--error";
         }
 
         return (

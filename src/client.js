@@ -24,7 +24,7 @@ const client = function (mozaik) {
     const apiCalls = {
         data(params) {
             return buildApiRequest(params)
-                .then(res => JSON.parse(res.text), error => mozaik.logger.error(error))
+                .then(res => JSON.parse(res.text), error => ({e: error}))
             ;
         }
     };

@@ -16,6 +16,7 @@ export default React.createClass({
             title: null,
             values: null,
             error: false,
+            jsonProcExpr: null,
             jsonUrl: null,
             jsonHeaders : null
         };
@@ -33,12 +34,20 @@ export default React.createClass({
         };
     },
 
+    processJson(data) {
+      if (typeof this.props.jsonProcExpr !== 'undefined') {
+        var processJson = eval(this.props.jsonProcExpr);
+        data = processJson(data);
+      }
+      return data;
+    },
+
     findProps(obj, props, defval) {
-    if (obj == undefined) {
-      return null;
-    }
-    var values = [];
-    if (typeof defval === 'undefined') defval = null;
+      if (obj == undefined) {
+        return null;
+      }
+      var values = [];
+      if (typeof defval === 'undefined') defval = null;
       for (var i = 0; i < props.length; i++) {
         var prop = props[i];
         if (typeof prop !== 'undefined' && prop && prop.match(/\$\{.*\}/)) {
@@ -63,8 +72,8 @@ export default React.createClass({
     onApiData(data) {
         this.setState({
             title: this.props.title,
-            values: this.findProps(data, this.props.values),
-			error: !!data.e
+            values: this.findProps(this.processJson(data), this.props.values),
+			error: !data || !!data.e
         });
     },
 
